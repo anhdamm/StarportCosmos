@@ -2,12 +2,75 @@ syntax = "proto3";
 package example.blog.blog;
 
 // this line is used by starport scaffolding # proto/tx/import
+import "blog/comment.proto";
+import "blog/post.proto";
 
 option go_package = "github.com/example/blog/x/blog/types";
 
 // Msg defines the Msg service.
 service Msg {
     // this line is used by starport scaffolding # proto/tx/rpc
+  rpc CreateComment(MsgCreateComment) returns (MsgCreateCommentResponse);
+  rpc UpdateComment(MsgUpdateComment) returns (MsgUpdateCommentResponse);
+  rpc DeleteComment(MsgDeleteComment) returns (MsgDeleteCommentResponse);
+
+  rpc CreatePost(MsgCreatePost) returns (MsgCreatePostResponse);
+  rpc UpdatePost(MsgUpdatePost) returns (MsgUpdatePostResponse);
+  rpc DeletePost(MsgDeletePost) returns (MsgDeletePostResponse);
 }
 
 // this line is used by starport scaffolding # proto/tx/message
+message MsgCreateComment {
+  string creator = 1;
+  string body = 2;
+  uint64 id = 3;
+  uint64 postID = 4;
+  string time = 5;
+}
+
+message MsgCreateCommentResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdateComment {
+  string creator = 1;
+  uint64 id = 2;
+  string body = 3;
+  uint64 postID = 4;
+}
+
+message MsgUpdateCommentResponse { }
+
+message MsgDeleteComment {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeleteCommentResponse { }
+
+message MsgCreatePost {
+  string creator = 1;
+  string title = 2; 
+  string body = 3; 
+  repeated CommentOnPost comment = 5;
+}
+
+message MsgCreatePostResponse {
+  uint64 id = 1;
+}
+
+message MsgUpdatePost {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3;
+  string body = 4;
+}
+
+message MsgUpdatePostResponse { }
+
+message MsgDeletePost {
+  string creator = 1;
+  uint64 id = 2;
+}
+
+message MsgDeletePostResponse { }

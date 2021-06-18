@@ -1,0 +1,21 @@
+// proto/blog/post.proto
+syntax = "proto3";
+package example.blog.blog;
+
+option go_package = "github.com/example/blog/x/blog/types";
+
+import "gogoproto/gogo.proto";
+
+message CommentOnPost {
+  string creator = 1;
+  string body = 2;
+  string time = 3;
+}
+
+message Post {
+  string creator = 1;
+  uint64 id = 2;
+  string title = 3; 
+  string body = 4; 
+  repeated CommentOnPost comments = 6;
+}
